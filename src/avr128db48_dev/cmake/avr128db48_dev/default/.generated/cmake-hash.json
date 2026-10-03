@@ -1,7 +1,7 @@
 {
     "hashFileVersion": "1.1.0",
-    "projectFileHash": "8fb331e293ecde5d7308b6c32217763e88edefdbc2a32e5b1dd9386a641cbd2e",
-    "cmakeFilesHash": "4e8c2c97dfcc0dcd1c8a146e84b6790a18e91f98190875eae9417978bf5c1574",
+    "projectFileHash": "41f49f9254e872075961a944f911b1baf5d320131ac9428987aa7e1b017cac5e",
+    "cmakeFilesHash": "53fdb345f41ee113d590b29b8f36a7fd5b01098b6a93a724d2d7358689f1e247",
     "cmakerVersion": "5.0.2",
     "workspacePath": "c:/dev_work/git/my/avr128db48_dev/src/avr128db48_dev"
 }

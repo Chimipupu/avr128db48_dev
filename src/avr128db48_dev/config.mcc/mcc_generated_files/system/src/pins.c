@@ -36,6 +36,8 @@
 
 static void (*IO_PB1_InterruptHandler)(void);
 static void (*IO_PB0_InterruptHandler)(void);
+static void (*IO_PB2_InterruptHandler)(void);
+static void (*IO_PB3_InterruptHandler)(void);
 
 void PIN_MANAGER_Initialize()
 {
@@ -50,7 +52,7 @@ void PIN_MANAGER_Initialize()
 
   /* DIR Registers Initialization */
     PORTA.DIR = 0x0;
-    PORTB.DIR = 0x1;
+    PORTB.DIR = 0x9;
     PORTC.DIR = 0x0;
     PORTD.DIR = 0x0;
     PORTE.DIR = 0x0;
@@ -122,6 +124,8 @@ void PIN_MANAGER_Initialize()
   // register default ISC callback functions at runtime; use these methods to register a custom function
     IO_PB1_SetInterruptHandler(IO_PB1_DefaultInterruptHandler);
     IO_PB0_SetInterruptHandler(IO_PB0_DefaultInterruptHandler);
+    IO_PB2_SetInterruptHandler(IO_PB2_DefaultInterruptHandler);
+    IO_PB3_SetInterruptHandler(IO_PB3_DefaultInterruptHandler);
 }
 
 /**
@@ -150,6 +154,32 @@ void IO_PB0_DefaultInterruptHandler(void)
     // add your IO_PB0 interrupt custom code
     // or set custom function using IO_PB0_SetInterruptHandler()
 }
+/**
+  Allows selecting an interrupt handler for IO_PB2 at application runtime
+*/
+void IO_PB2_SetInterruptHandler(void (* interruptHandler)(void)) 
+{
+    IO_PB2_InterruptHandler = interruptHandler;
+}
+
+void IO_PB2_DefaultInterruptHandler(void)
+{
+    // add your IO_PB2 interrupt custom code
+    // or set custom function using IO_PB2_SetInterruptHandler()
+}
+/**
+  Allows selecting an interrupt handler for IO_PB3 at application runtime
+*/
+void IO_PB3_SetInterruptHandler(void (* interruptHandler)(void)) 
+{
+    IO_PB3_InterruptHandler = interruptHandler;
+}
+
+void IO_PB3_DefaultInterruptHandler(void)
+{
+    // add your IO_PB3 interrupt custom code
+    // or set custom function using IO_PB3_SetInterruptHandler()
+}
 ISR(PORTA_PORT_vect)
 { 
     /* Clear interrupt flags */
@@ -166,6 +196,14 @@ ISR(PORTB_PORT_vect)
     if(VPORTB.INTFLAGS & PORT_INT0_bm)
     {
        IO_PB0_InterruptHandler(); 
+    }
+    if(VPORTB.INTFLAGS & PORT_INT2_bm)
+    {
+       IO_PB2_InterruptHandler(); 
+    }
+    if(VPORTB.INTFLAGS & PORT_INT3_bm)
+    {
+       IO_PB3_InterruptHandler(); 
     }
     /* Clear interrupt flags */
     VPORTB.INTFLAGS = 0xff;

@@ -76,6 +76,44 @@
 #define IO_PB0_EnableInterruptForLowLevelSensing() do { PORTB.PIN0CTRL = (PORTB.PIN0CTRL & ~PORT_ISC_gm) | 0x5 ; } while(0)
 #define PB0_SetInterruptHandler IO_PB0_SetInterruptHandler
 
+//get/set IO_PB2 aliases
+#define IO_PB2_SetHigh() do { PORTB_OUTSET = 0x4; } while(0)
+#define IO_PB2_SetLow() do { PORTB_OUTCLR = 0x4; } while(0)
+#define IO_PB2_Toggle() do { PORTB_OUTTGL = 0x4; } while(0)
+#define IO_PB2_GetValue() (VPORTB.IN & (0x1 << 2))
+#define IO_PB2_SetDigitalInput() do { PORTB_DIRCLR = 0x4; } while(0)
+#define IO_PB2_SetDigitalOutput() do { PORTB_DIRSET = 0x4; } while(0)
+#define IO_PB2_SetPullUp() do { PORTB_PIN2CTRL  |= PORT_PULLUPEN_bm; } while(0)
+#define IO_PB2_ResetPullUp() do { PORTB_PIN2CTRL  &= ~PORT_PULLUPEN_bm; } while(0)
+#define IO_PB2_SetInverted() do { PORTB_PIN2CTRL  |= PORT_INVEN_bm; } while(0)
+#define IO_PB2_ResetInverted() do { PORTB_PIN2CTRL  &= ~PORT_INVEN_bm; } while(0)
+#define IO_PB2_DisableInterruptOnChange() do { PORTB.PIN2CTRL = (PORTB.PIN2CTRL & ~PORT_ISC_gm) | 0x0 ; } while(0)
+#define IO_PB2_EnableInterruptForBothEdges() do { PORTB.PIN2CTRL = (PORTB.PIN2CTRL & ~PORT_ISC_gm) | 0x1 ; } while(0)
+#define IO_PB2_EnableInterruptForRisingEdge() do { PORTB.PIN2CTRL = (PORTB.PIN2CTRL & ~PORT_ISC_gm) | 0x2 ; } while(0)
+#define IO_PB2_EnableInterruptForFallingEdge() do { PORTB.PIN2CTRL = (PORTB.PIN2CTRL & ~PORT_ISC_gm) | 0x3 ; } while(0)
+#define IO_PB2_DisableDigitalInputBuffer() do { PORTB.PIN2CTRL = (PORTB.PIN2CTRL & ~PORT_ISC_gm) | 0x4 ; } while(0)
+#define IO_PB2_EnableInterruptForLowLevelSensing() do { PORTB.PIN2CTRL = (PORTB.PIN2CTRL & ~PORT_ISC_gm) | 0x5 ; } while(0)
+#define PB2_SetInterruptHandler IO_PB2_SetInterruptHandler
+
+//get/set IO_PB3 aliases
+#define IO_PB3_SetHigh() do { PORTB_OUTSET = 0x8; } while(0)
+#define IO_PB3_SetLow() do { PORTB_OUTCLR = 0x8; } while(0)
+#define IO_PB3_Toggle() do { PORTB_OUTTGL = 0x8; } while(0)
+#define IO_PB3_GetValue() (VPORTB.IN & (0x1 << 3))
+#define IO_PB3_SetDigitalInput() do { PORTB_DIRCLR = 0x8; } while(0)
+#define IO_PB3_SetDigitalOutput() do { PORTB_DIRSET = 0x8; } while(0)
+#define IO_PB3_SetPullUp() do { PORTB_PIN3CTRL  |= PORT_PULLUPEN_bm; } while(0)
+#define IO_PB3_ResetPullUp() do { PORTB_PIN3CTRL  &= ~PORT_PULLUPEN_bm; } while(0)
+#define IO_PB3_SetInverted() do { PORTB_PIN3CTRL  |= PORT_INVEN_bm; } while(0)
+#define IO_PB3_ResetInverted() do { PORTB_PIN3CTRL  &= ~PORT_INVEN_bm; } while(0)
+#define IO_PB3_DisableInterruptOnChange() do { PORTB.PIN3CTRL = (PORTB.PIN3CTRL & ~PORT_ISC_gm) | 0x0 ; } while(0)
+#define IO_PB3_EnableInterruptForBothEdges() do { PORTB.PIN3CTRL = (PORTB.PIN3CTRL & ~PORT_ISC_gm) | 0x1 ; } while(0)
+#define IO_PB3_EnableInterruptForRisingEdge() do { PORTB.PIN3CTRL = (PORTB.PIN3CTRL & ~PORT_ISC_gm) | 0x2 ; } while(0)
+#define IO_PB3_EnableInterruptForFallingEdge() do { PORTB.PIN3CTRL = (PORTB.PIN3CTRL & ~PORT_ISC_gm) | 0x3 ; } while(0)
+#define IO_PB3_DisableDigitalInputBuffer() do { PORTB.PIN3CTRL = (PORTB.PIN3CTRL & ~PORT_ISC_gm) | 0x4 ; } while(0)
+#define IO_PB3_EnableInterruptForLowLevelSensing() do { PORTB.PIN3CTRL = (PORTB.PIN3CTRL & ~PORT_ISC_gm) | 0x5 ; } while(0)
+#define PB3_SetInterruptHandler IO_PB3_SetInterruptHandler
+
 /**
  * @ingroup  pinsdriver
  * @brief GPIO and peripheral I/O initialization
@@ -125,4 +163,46 @@ void IO_PB0_DefaultInterruptHandler(void);
  * @return none
  */
 void IO_PB0_SetInterruptHandler(void (* interruptHandler)(void)) ; 
+
+/**
+ * @ingroup  pinsdriver
+ * @brief Default Interrupt Handler for IO_PB2 pin. 
+ *        This is a predefined interrupt handler to be used together with the IO_PB2_SetInterruptHandler() method.
+ *        This handler is called every time the IO_PB2 ISR is executed. 
+ * @pre PIN_MANAGER_Initialize() has been called at least once
+ * @param none
+ * @return none
+ */
+void IO_PB2_DefaultInterruptHandler(void);
+
+/**
+ * @ingroup  pinsdriver
+ * @brief Interrupt Handler Setter for IO_PB2 pin input-sense-config functionality.
+ *        Allows selecting an interrupt handler for IO_PB2 at application runtime
+ * @pre PIN_MANAGER_Initialize() has been called at least once
+ * @param InterruptHandler function pointer.
+ * @return none
+ */
+void IO_PB2_SetInterruptHandler(void (* interruptHandler)(void)) ; 
+
+/**
+ * @ingroup  pinsdriver
+ * @brief Default Interrupt Handler for IO_PB3 pin. 
+ *        This is a predefined interrupt handler to be used together with the IO_PB3_SetInterruptHandler() method.
+ *        This handler is called every time the IO_PB3 ISR is executed. 
+ * @pre PIN_MANAGER_Initialize() has been called at least once
+ * @param none
+ * @return none
+ */
+void IO_PB3_DefaultInterruptHandler(void);
+
+/**
+ * @ingroup  pinsdriver
+ * @brief Interrupt Handler Setter for IO_PB3 pin input-sense-config functionality.
+ *        Allows selecting an interrupt handler for IO_PB3 at application runtime
+ * @pre PIN_MANAGER_Initialize() has been called at least once
+ * @param InterruptHandler function pointer.
+ * @return none
+ */
+void IO_PB3_SetInterruptHandler(void (* interruptHandler)(void)) ; 
 #endif /* PINS_H_INCLUDED */
