@@ -20,25 +20,51 @@
 #include "mcc_generated_files/system/pins.h"
 
 // ---------------------------------------------
+#define BUTTON_ON     0
+#define BUTTON_OFF    0xFF
+static void _button_polling(void);
+
+static void _app_init(void);
+static void _app_main(void);
 
 // ---------------------------------------------
 // [Static]
 
-// ---------------------------------------------
-int main(void)
+static void _button_polling(void)
 {
-    uint32_t cnt = 0;
+    volatile uint8_t btn_val = BUTTON_OFF;
+    volatile bool is_pressed = false;
 
+    btn_val = IO_PB2_GetValue();
+    is_pressed = (btn_val == BUTTON_ON) ? true : false;
+
+    if(is_pressed) {
+        printf("Button On!\r\n");
+    }
+}
+
+static void _app_init(void)
+{
     SYSTEM_Initialize();
     IO_PB3_SetDigitalOutput();
     printf("AVR128DB48 Curiosity Nano, Develop\r\n");
+}
+
+static void _app_main(void)
+{
+    IO_PB3_Toggle();
+    _button_polling(); // ボタン処理
+}
+
+// ---------------------------------------------
+int main(void)
+{
+    _app_init();
 
     while(1)
     {
-        printf("loop %ld\r\n", cnt);
-        cnt++;
-        IO_PB3_Toggle();
-        _delay_ms(1000);
+        _app_main();
+        _delay_ms(500);
     }
 }
 // ---------------------------------------------

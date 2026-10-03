@@ -46,7 +46,7 @@ function(avr128db48_dev_default_default_AVR_GCC_compile_rule target)
         "-c"
         "-funsigned-char"
         "-funsigned-bitfields"
-        "-O1"
+        "-Os"
         "-ffunction-sections"
         "-fdata-sections"
         "-fpack-struct"
